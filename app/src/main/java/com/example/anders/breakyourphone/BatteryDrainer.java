@@ -30,14 +30,10 @@ public class BatteryDrainer extends Service implements SensorEventListener {
     private NotificationManager mNM;
     private final IBinder mBinder = new LocalBinder();
 
-    private SensorManager sensorManager;
-    private Sensor accelerometer;
-    private Sensor gyroscope;
-
     private Intent appIntent1 = null;
     private Intent appIntent2 = null;
-    private Intent appIntent3 = null;
-    private Intent appIntent4 = null;
+//    private Intent appIntent3 = null;
+//    private Intent appIntent4 = null;
 
     Timer timer;
     int count = 0;
@@ -58,24 +54,24 @@ public class BatteryDrainer extends Service implements SensorEventListener {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("stalin did nothing wrong", Context.MODE_PRIVATE);
         String packageName1 = sharedPreferences.getString("1", "");
         String packageName2 = sharedPreferences.getString("2", "");
-        String packageName3 = sharedPreferences.getString("3", "");
-        String packageName4 = sharedPreferences.getString("4", "");
+//        String packageName3 = sharedPreferences.getString("3", "");
+//        String packageName4 = sharedPreferences.getString("4", "");
         if(!packageName1.equals("")) {
             appIntent1 = packageManager.getLaunchIntentForPackage(packageName1);
         }
         if(!packageName2.equals("")) {
             appIntent2 = packageManager.getLaunchIntentForPackage(packageName2);
         }
-        if(!packageName3.equals("")) {
-            appIntent3 = packageManager.getLaunchIntentForPackage(packageName3);
-        }
-        if(!packageName4.equals("")) {
-            appIntent4 = packageManager.getLaunchIntentForPackage(packageName4);
-        }
+//        if(!packageName3.equals("")) {
+//            appIntent3 = packageManager.getLaunchIntentForPackage(packageName3);
+//        }
+//        if(!packageName4.equals("")) {
+//            appIntent4 = packageManager.getLaunchIntentForPackage(packageName4);
+//        }
 
-        sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        Sensor gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
         sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_UI);
     }
@@ -86,7 +82,6 @@ public class BatteryDrainer extends Service implements SensorEventListener {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("running", 1);
         editor.commit();
-        Toast.makeText(this, "Listening started", Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
@@ -97,7 +92,6 @@ public class BatteryDrainer extends Service implements SensorEventListener {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("running", 0);
         editor.commit();
-        Toast.makeText(this, "Listening stopped", Toast.LENGTH_SHORT).show();
     }
 
     @Override

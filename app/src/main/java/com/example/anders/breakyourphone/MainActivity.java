@@ -74,10 +74,12 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences2 = getApplicationContext().getSharedPreferences("kulaks deserved it", Context.MODE_PRIVATE);
         int running = sharedPreferences2.getInt("running", 0);
         if(running == 1) {
-//            button5.setEnabled(false);
+            textView.setText("Listening...");
+            textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
             setFabPause();
         } else {
-//            button6.setEnabled(false);
+            textView.setText("Inactive");
+            textView.setTextColor(colorStateList);
             setFabPlay();
         }
 
@@ -197,6 +199,13 @@ public class MainActivity extends AppCompatActivity {
 //                    button4.setText(appName);
 //                    break;
             }
+            SharedPreferences sharedPreferences2 = getApplicationContext().getSharedPreferences("kulaks deserved it", Context.MODE_PRIVATE);
+            int running = sharedPreferences2.getInt("running", 0);
+            if(running == 1) {
+                stopService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                startService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                Toast.makeText(getApplicationContext(), "Service updated", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -207,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("pressed", "hi");
                 startService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                Toast.makeText(getApplicationContext(), "Listening started", Toast.LENGTH_SHORT).show();
                 textView.setText("Listening...");
                 textView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
                 setFabPause();
@@ -221,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("pressed", "bye");
                 stopService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                Toast.makeText(getApplicationContext(), "Listening stopped", Toast.LENGTH_SHORT).show();
                 textView.setText("Inactive");
                 textView.setTextColor(colorStateList);
                 setFabPlay();
