@@ -147,7 +147,7 @@ public class BatteryDrainer extends Service implements SensorEventListener {
                                                wakeLock.acquire();
                                                startActivity(appIntent1);
                                                SystemClock.sleep(500);
-                                               keyguardLock.reenableKeyguard();
+                                               //keyguardLock.reenableKeyguard();
                                            }
                                        }
                                    }
@@ -194,7 +194,7 @@ public class BatteryDrainer extends Service implements SensorEventListener {
                                                wakeLock.acquire();
                                                startActivity(appIntent2);
                                                SystemClock.sleep(500);
-                                               keyguardLock.reenableKeyguard();
+                                               //keyguardLock.reenableKeyguard();
                                            }
                                        }
                                    }
