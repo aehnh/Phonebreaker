@@ -22,6 +22,18 @@
             android:elevation="2dp"
             android:outlineProvider="bounds">
 
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_margin="24dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                app:backgroundTint="@color/colorPrimary"
+                app:fabSize="normal"
+                app:srcCompat="@android:drawable/ic_media_play"
+                android:id="@+id/floatingActionButton" />
+
             <TextView
                 android:text="Inactive"
                 android:layout_width="wrap_content"
@@ -34,37 +46,64 @@
 
         <LinearLayout
             android:id="@+id/body"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:background="#E5E5E5">
+            android:layout_weight="0.5">
 
-            <Button
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/button"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.5"
+                android:background="#E5E5E5">
 
-            <Button
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        app:srcCompat="@android:drawable/ic_menu_add"
+                        android:id="@+id/imageView" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/button2"
-                android:layout_weight="0.5" />
+                android:layout_weight="0.5"
+                android:background="#E9E9E9">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        app:srcCompat="@android:drawable/ic_menu_add"
+                        android:id="@+id/imageView2" />
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_margin="16dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_media_play"
-        app:layout_anchor="@id/header"
-        app:layout_anchorGravity="bottom|right|end"
-        android:id="@+id/floatingActionButton" />
 
 </android.support.design.widget.CoordinatorLayout>

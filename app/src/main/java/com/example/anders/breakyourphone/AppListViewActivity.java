@@ -47,7 +47,7 @@ public class AppListViewActivity extends ListActivity {
 
         Intent output = new Intent();
         output.putExtra("action", action);
-        output.putExtra("appName", (applist.get(position)).loadLabel(packageManager));
+        output.putExtra("packageName", (applist.get(position)).packageName);
         setResult(RESULT_OK, output);
         finish();
     }

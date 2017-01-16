@@ -10,9 +10,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,12 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private Button button;
     private Button button2;
+    private LinearLayout linearLayout;
+    private LinearLayout linearLayout2;
+    private ImageView imageView;
+    private ImageView imageView2;
+//    private TextView textView2;
+//    private TextView textView3;
 //    private Button button3;
 //    private Button button4;
     FloatingActionButton floatingActionButton;
@@ -32,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.material);
 
-        button = (Button)findViewById(R.id.button);
-        button2 = (Button)findViewById(R.id.button2);
+        linearLayout = (LinearLayout)findViewById(R.id.linearLayout);
+        linearLayout2 = (LinearLayout)findViewById(R.id.linearLayout2);
+        imageView = (ImageView)findViewById(R.id.imageView);
+        imageView2 = (ImageView)findViewById(R.id.imageView2);
+//        textView2 = (TextView)findViewById(R.id.textView2);
+//        textView3 = (TextView)findViewById(R.id.textView3);
+//        button = (Button)findViewById(R.id.button);
+//        button2 = (Button)findViewById(R.id.button2);
 //        button3 = (Button)findViewById(R.id.button3);
 //        button4 = (Button)findViewById(R.id.button4);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingActionButton);
@@ -63,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
         PackageManager packageManager = getApplicationContext().getPackageManager();
         try {
-            button.setText((String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName1, PackageManager.GET_META_DATA)));
-            button2.setText((String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName2, PackageManager.GET_META_DATA)));
-//            button3.setText((String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName3, PackageManager.GET_META_DATA)));
-//            button4.setText((String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName4, PackageManager.GET_META_DATA)));
+            imageView.setImageDrawable(packageManager.getApplicationInfo(packageName1, PackageManager.GET_META_DATA).loadIcon(packageManager));
+            imageView2.setImageDrawable(packageManager.getApplicationInfo(packageName2, PackageManager.GET_META_DATA).loadIcon(packageManager));
+//            textView2.setText((String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName1, PackageManager.GET_META_DATA)));
+//            textView3.setText((String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName2, PackageManager.GET_META_DATA)));
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -83,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             setFabPlay();
         }
 
-        button.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AppListViewActivity.class);
@@ -91,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
+        linearLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AppListViewActivity.class);
@@ -99,82 +114,45 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
-//        button3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AppListViewActivity.class);
-//                intent.putExtra("action", 3);
-//                startActivityForResult(intent, 0);
-//            }
-//        });
-//        button4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AppListViewActivity.class);
-//                intent.putExtra("action", 4);
-//                startActivityForResult(intent, 0);
-//            }
-//        });
-        button.setOnLongClickListener(new View.OnLongClickListener() {
+
+        linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("stalin did nothing wrong", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("1", "");
                 editor.commit();
-                button.setText("");
+                imageView.setImageResource(android.R.drawable.ic_menu_add);
+//                textView2.setText("");
+                SharedPreferences sharedPreferences2 = getApplicationContext().getSharedPreferences("kulaks deserved it", Context.MODE_PRIVATE);
+                int running = sharedPreferences2.getInt("running", 0);
+                if(running == 1) {
+                    stopService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                    startService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                    Toast.makeText(getApplicationContext(), "Service updated", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
-        button2.setOnLongClickListener(new View.OnLongClickListener() {
+        linearLayout2.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("stalin did nothing wrong", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("2", "");
                 editor.commit();
-                button2.setText("");
+                imageView2.setImageResource(android.R.drawable.ic_menu_add);
+//                textView3.setText("");
+                SharedPreferences sharedPreferences2 = getApplicationContext().getSharedPreferences("kulaks deserved it", Context.MODE_PRIVATE);
+                int running = sharedPreferences2.getInt("running", 0);
+                if(running == 1) {
+                    stopService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                    startService(new Intent(getApplicationContext(), BatteryDrainer.class));
+                    Toast.makeText(getApplicationContext(), "Service updated", Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
-//        button3.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("stalin did nothing wrong", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putString("3", "");
-//                editor.commit();
-//                button3.setText("");
-//                return true;
-//            }
-//        });
-//        button4.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("stalin did nothing wrong", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                editor.putString("4", "");
-//                editor.commit();
-//                button4.setText("");
-//                return true;
-//            }
-//        });
-//        button5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startService(new Intent(getApplicationContext(), BatteryDrainer.class));
-//                button5.setEnabled(false);
-//                button6.setEnabled(true);
-//            }
-//        });
-//        button6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                stopService(new Intent(getApplicationContext(), BatteryDrainer.class));
-//                button5.setEnabled(true);
-//                button6.setEnabled(false);
-//            }
-//        });
     }
 
     @Override
@@ -184,13 +162,23 @@ public class MainActivity extends AppCompatActivity {
             if(action == 0) {
                 Toast.makeText(getApplication().getBaseContext(), "invalid action", Toast.LENGTH_LONG).show();
             }
-            String appName = data.getStringExtra("appName");
+            String packageName = data.getStringExtra("packageName");
             switch(action) {
                 case(1):
-                    button.setText(appName);
+                    try {
+                        imageView.setImageDrawable(getPackageManager().getApplicationIcon(packageName));
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+//                    button.setText(appName);
                     break;
                 case(2):
-                    button2.setText(appName);
+                    try {
+                        imageView2.setImageDrawable(getPackageManager().getApplicationIcon(packageName));
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+//                    button2.setText(appName);
                     break;
 //                case(3):
 //                    button3.setText(appName);

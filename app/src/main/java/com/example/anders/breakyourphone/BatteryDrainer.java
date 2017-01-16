@@ -121,7 +121,7 @@ public class BatteryDrainer extends Service implements SensorEventListener {
     public void onSensorChanged(final SensorEvent event) {
         Sensor sensor = event.sensor;
         if(sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            if (Math.sqrt(Math.pow(event.values[0],2)+Math.pow(event.values[1],2)+Math.pow(event.values[2],2)) > 55) {
+            if (Math.sqrt(Math.pow(event.values[0],2)+Math.pow(event.values[1],2)+Math.pow(event.values[2],2)) > 50) {
                 count = 0;
                 timer = new Timer();
                 timer.schedule(new TimerTask() {
@@ -129,7 +129,7 @@ public class BatteryDrainer extends Service implements SensorEventListener {
                                    public void run() {
                                        count++;
                                        if (count < 100) {
-                                           if (Math.sqrt(Math.pow(event.values[0],2)+Math.pow(event.values[1],2)+Math.pow(event.values[2],2)) > 55) {
+                                           if (Math.sqrt(Math.pow(event.values[0],2)+Math.pow(event.values[1],2)+Math.pow(event.values[2],2)) > 50) {
                                                timer.cancel();
                                                Log.d("OPENING", "1");
                                                event.values[0] = 0;
