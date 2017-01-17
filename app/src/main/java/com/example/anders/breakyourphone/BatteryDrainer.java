@@ -18,6 +18,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Display;
 import android.widget.Toast;
@@ -130,18 +131,26 @@ public class BatteryDrainer extends Service implements SensorEventListener {
                                        count++;
                                        if (count < 100) {
                                            if (Math.sqrt(Math.pow(event.values[0],2)+Math.pow(event.values[1],2)+Math.pow(event.values[2],2)) > 50) {
-                                               timer.cancel();
-                                               Log.d("OPENING", "1");
-                                               event.values[0] = 0;
-                                               event.values[1] = 0;
-                                               event.values[2] = 0;
-                                               PowerManager.WakeLock wakeLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG1");
-                                               KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE)).newKeyguardLock("TAG2");
-                                               keyguardLock.disableKeyguard();
-                                               wakeLock.acquire();
-                                               startActivity(appIntent1);
-                                               SystemClock.sleep(500);
-                                               //keyguardLock.reenableKeyguard();
+                                                timer.cancel();
+                                                Log.d("OPENING", "1");
+                                                event.values[0] = 0;
+                                                event.values[1] = 0;
+                                                event.values[2] = 0;
+                                                Vibrator v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+                                                v.vibrate(500);
+                                                PowerManager.WakeLock wakeLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG1");
+                                                wakeLock.acquire();
+                                                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("i will make stalin look like an anarchist", Context.MODE_PRIVATE);
+                                                int permission = sharedPreferences.getInt("permission", 0);
+                                                if(permission == 1) {
+                                                    KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE)).newKeyguardLock("TAG2");
+                                                    keyguardLock.disableKeyguard();
+                                                } else {
+                                                    KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE)).newKeyguardLock("TAG2");
+                                                    keyguardLock.reenableKeyguard();
+                                                }
+                                                startActivity(appIntent1);
+                                                SystemClock.sleep(500);
                                            }
                                        }
                                    }
@@ -182,13 +191,21 @@ public class BatteryDrainer extends Service implements SensorEventListener {
                                                event.values[1] =0;
                                                event.values[2] =0;
                                                Log.d("OPENING", "2");
+                                               Vibrator v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+                                               v.vibrate(500);
                                                PowerManager.WakeLock wakeLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG1");
-                                               KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE)).newKeyguardLock("TAG2");
-                                               keyguardLock.disableKeyguard();
                                                wakeLock.acquire();
+                                               SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("i will make stalin look like an anarchist", Context.MODE_PRIVATE);
+                                               int permission = sharedPreferences.getInt("permission", 0);
+                                               if(permission == 1) {
+                                                   KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE)).newKeyguardLock("TAG2");
+                                                   keyguardLock.disableKeyguard();
+                                               } else {
+                                                   KeyguardManager.KeyguardLock keyguardLock = ((KeyguardManager)getSystemService(Context.KEYGUARD_SERVICE)).newKeyguardLock("TAG2");
+                                                   keyguardLock.reenableKeyguard();
+                                               }
                                                startActivity(appIntent2);
                                                SystemClock.sleep(500);
-                                               //keyguardLock.reenableKeyguard();
                                            }
                                        }
                                    }

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -19,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AppListViewActivity"/>
+        <activity android:name=".Settings"/>
         <service
             android:name=".BatteryDrainer"
             android:exported="false"/>
